@@ -2,20 +2,6 @@
 
 Remove image backgrounds instantly. Upload any image, preview the result side-by-side, and download a crisp PNG with full transparency.
 
-![BG Remover Screenshot](https://img.shields.io/badge/Built%20with-Flask%20%26%20rembg-blueviolet?style=for-the-badge)
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-
-## ✨ Features
-
-- **Precise** — Uses [rembg](https://github.com/danielgatis/rembg) for accurate background removal
-- **Instant Preview** — See your uploaded image before processing
-- **Before & After** — Side-by-side comparison of original vs processed image
-- **Drag & Drop** — Upload images by dragging or clicking
-- **Multiple Formats** — Supports PNG, JPG, JPEG, WEBP, BMP (up to 16MB)
-- **Transparent PNG** — Downloads with full alpha transparency
-- **Beautiful UI** — Modern glassmorphism design with smooth animations
-
 ## 🚀 Quick Start
 
 ### Prerequisites
