@@ -1,9 +1,20 @@
+import sys
+print("Starting app.py...", flush=True)
+
 import os
+print("Imported os", flush=True)
 import uuid
+print("Imported uuid", flush=True)
 from flask import Flask, request, render_template, send_file, jsonify
-from rembg import remove
+print("Imported flask", flush=True)
 from PIL import Image
+print("Imported PIL", flush=True)
 import io
+print("Imported io", flush=True)
+
+print("Importing rembg... this might take a while or crash due to memory.", flush=True)
+from rembg import remove
+print("Imported rembg successfully!", flush=True)
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max upload
