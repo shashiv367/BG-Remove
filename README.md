@@ -1,69 +1,28 @@
-# BG Remover — Background Removal Tool
+# BG Remover
 
-Remove image backgrounds instantly. Upload any image, preview the result side-by-side, and download a crisp PNG with full transparency.
+Remove image backgrounds instantly — entirely in your browser. No server, no uploads, fully private.
 
-## 🚀 Quick Start
+## How It Works
 
-### Prerequisites
-- Python 3.9+
-- pip
+Uses [@imgly/background-removal](https://github.com/nicbarker/imgly-background-removal) which runs an ML model (ONNX) directly in the browser via WebAssembly. Your images never leave your device.
 
-### Local Development
+## Deploy on GitHub Pages
 
-```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/BG-remover.git
-cd BG-remover
+1. Push this repo to GitHub
+2. Go to **Settings → Pages**
+3. Under **Source**, select **Deploy from a branch**
+4. Choose `main` branch and `/ (root)` folder
+5. Click **Save** — your site will be live at `https://<username>.github.io/<repo-name>/`
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the app
-python app.py
-```
-
-Open [http://localhost:5000](http://localhost:5000) in your browser.
-
-## 🌐 Deploy to Render
-
-1. Push your code to GitHub
-2. Go to [render.com](https://render.com) and create a **New Web Service**
-3. Connect your GitHub repository
-4. Configure:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
-   - **Instance Type**: Free (or paid for better performance)
-5. Click **Create Web Service**
-
-> ⚠️ **Note**: The first request may be slow as rembg downloads the processing model (~170MB). Subsequent requests will be faster.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 BG-remover/
-├── app.py              # Flask backend
-├── requirements.txt    # Python dependencies
-├── Procfile           # Render deployment config
-├── render.yaml        # Render blueprint (optional)
-├── .gitignore         # Git ignore rules
-├── README.md          # This file
-├── templates/
-│   └── index.html     # Frontend UI
-└── processed/         # Temporary processed images
+├── index.html    # The entire app (HTML + CSS + JS)
+├── .gitignore
+└── README.md
 ```
 
-## 🛠 Tech Stack
+## License
 
-- **Backend**: Flask + Gunicorn
-- **Processing**: rembg
-- **Image Processing**: Pillow
-- **Frontend**: Vanilla HTML/CSS/JS
-- **Deployment**: Render
-
-## 📄 License
-
-MIT License — feel free to use this project however you'd like.
+MIT

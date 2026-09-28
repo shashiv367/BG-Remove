@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Background Remover</title>
-    <meta name="description" content="Simple image background remover.">
+    <meta name="description" content="Remove image backgrounds instantly in your browser. No uploads, fully private.">
 <style>
 * { box-sizing: border-box; }
 
@@ -45,11 +45,6 @@ body {
     padding: 0;
 }
 
-.navbar,
-.hero {
-    display: none !important;
-}
-
 /* Upload box */
 #drop-zone {
     background: var(--beige-light);
@@ -65,10 +60,6 @@ body {
 #drop-zone.dragover {
     border-color: var(--brown);
     background: var(--white);
-}
-
-.upload-ring {
-    display: none;
 }
 
 #drop-zone h2 {
@@ -103,11 +94,6 @@ body {
     background: var(--brown-dark);
 }
 
-.or-text,
-.formats {
-    display: none;
-}
-
 #file-input {
     display: none;
 }
@@ -133,16 +119,6 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
-.file-info {
-    display: flex;
-    align-items: center;
-}
-
-.file-icon,
-.file-details span {
-    display: none;
-}
-
 .file-details h4 {
     margin: 0;
     font-size: 14px;
@@ -157,6 +133,7 @@ body {
     background: transparent;
     color: var(--brown);
     cursor: pointer;
+    font-size: 13px;
 }
 
 .btn-change:hover {
@@ -178,16 +155,14 @@ body {
     object-fit: contain;
 }
 
-/* Process / download */
-.action-bar,
-.result-actions {
-    display: flex;
+/* Action bar */
+.action-bar {
+    display: none;
     justify-content: center;
     margin-top: 15px;
 }
 
-.btn-process,
-.btn-download {
+.btn-process {
     padding: 11px 25px;
     border: 0;
     border-radius: 5px;
@@ -196,11 +171,12 @@ body {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.btn-process:hover,
-.btn-download:hover {
+.btn-process:hover:not(:disabled) {
     background: var(--brown-dark);
 }
 
@@ -211,35 +187,53 @@ body {
 
 .spinner-inline {
     display: none;
-}
-
-.btn-process.loading .spinner-inline {
-    display: inline-block;
     width: 14px;
     height: 14px;
-    margin-left: 6px;
     border: 2px solid rgba(255,255,255,.4);
     border-top-color: #fff;
     border-radius: 50%;
     animation: spin .7s linear infinite;
 }
 
-.btn-process.loading .btn-text {
-    display: none;
-}
-
-.btn-loading-text {
-    display: none;
-}
-
-.btn-process.loading .btn-loading-text {
-    display: inline;
-}
+.btn-process.loading .spinner-inline { display: inline-block; }
+.btn-process.loading .btn-text { display: none; }
+.btn-loading-text { display: none; }
+.btn-process.loading .btn-loading-text { display: inline; }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
+/* Progress bar */
+.progress-wrap {
+    display: none;
+    margin-top: 15px;
+}
+
+.progress-bar-outer {
+    width: 100%;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    width: 0%;
+    background: var(--brown);
+    border-radius: 4px;
+    transition: width .3s ease;
+}
+
+.progress-text {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--brown-light);
+    text-align: center;
+}
+
+/* Error banner */
 #error-banner {
     display: none;
     margin-top: 15px;
@@ -252,38 +246,25 @@ body {
     font-size: 13px;
 }
 
-/* Result: only the processed preview + download */
+/* Result */
 .result-section {
     display: none;
     margin-top: 20px;
 }
 
-.result-header,
-.compare-card:first-child {
-    display: none;
-}
-
-.compare-grid {
-    display: block;
-}
-
-.compare-card.result-card {
+.result-card {
     background: var(--beige-light);
     border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
 }
 
-.compare-card.result-card .card-label {
+.result-card .card-label {
     padding: 10px 15px;
     border-bottom: 1px solid var(--border);
     font-size: 14px;
     font-weight: 600;
     color: var(--brown-dark);
-}
-
-.label-dot {
-    display: none;
 }
 
 .card-image {
@@ -295,57 +276,68 @@ body {
     background: var(--white);
 }
 
-.compare-card img {
+.card-image img {
     max-width: 100%;
     max-height: 420px;
     object-fit: contain;
 }
 
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-download {
+    padding: 11px 25px;
+    border: 0;
+    border-radius: 5px;
+    background: var(--brown);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-download:hover {
+    background: var(--brown-dark);
+}
+
 .btn-reset {
-    display: none;
+    padding: 11px 25px;
+    border: 1px solid var(--brown-light);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--brown);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-reset:hover {
+    background: var(--beige);
 }
 
 @media (max-width: 600px) {
-    .app {
-        padding: 20px 12px;
-    }
-
-    #drop-zone {
-        padding: 45px 18px;
-    }
-
-    .preview-body,
-    .card-image {
-        min-height: 240px;
-    }
+    .app { padding: 20px 12px; }
+    #drop-zone { padding: 45px 18px; }
+    .preview-body, .card-image { min-height: 240px; }
 }
 </style>
 </head>
 <body>
 
 <div class="app">
-<!-- Main Content -->
-    <main class="content" id="main-content">
+    <main class="content">
 
         <!-- Upload Zone -->
-        <div class="upload-section" id="upload-section">
+        <div id="upload-section">
             <div id="drop-zone">
-                <div class="upload-ring">
-                    <span class="upload-emoji">📸</span>
-                </div>
                 <h2>Drop your image here</h2>
                 <p class="hint">or click anywhere to browse</p>
                 <div class="upload-actions">
                     <button class="btn-browse" type="button" id="browse-btn">Choose Image</button>
-                    <span class="or-text">or drag & drop</span>
-                </div>
-                <div class="formats">
-                    <span class="format-tag">PNG</span>
-                    <span class="format-tag">JPG</span>
-                    <span class="format-tag">JPEG</span>
-                    <span class="format-tag">WEBP</span>
-                    <span class="format-tag">BMP</span>
-                    <span class="format-tag">≤ 16 MB</span>
                 </div>
             </div>
             <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/bmp">
@@ -355,12 +347,8 @@ body {
         <div class="preview-section" id="preview-section">
             <div class="preview-container">
                 <div class="preview-header">
-                    <div class="file-info">
-                        <div class="file-icon">🖼️</div>
-                        <div class="file-details">
-                            <h4 id="preview-filename">image.png</h4>
-                            <span id="preview-filesize">2.3 MB</span>
-                        </div>
+                    <div class="file-details">
+                        <h4 id="preview-filename">image.png</h4>
                     </div>
                     <button class="btn-change" id="change-btn" type="button">Change</button>
                 </div>
@@ -369,57 +357,47 @@ body {
                 </div>
             </div>
         </div>
-        <div class="action-bar" id="action-bar" style="display:flex;"><button class="btn-process" id="process-btn" type="button"><span class="btn-text">Remove Background</span><span class="btn-loading-text">Removing background…</span><span class="spinner-inline"></span></button></div>
-<!-- Error Banner -->
+
+        <!-- Action Bar -->
+        <div class="action-bar" id="action-bar">
+            <button class="btn-process" id="process-btn" type="button">
+                <span class="btn-text">Remove Background</span>
+                <span class="btn-loading-text">Removing background…</span>
+                <span class="spinner-inline"></span>
+            </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrap" id="progress-wrap">
+            <div class="progress-bar-outer">
+                <div class="progress-bar-inner" id="progress-bar"></div>
+            </div>
+            <p class="progress-text" id="progress-text">Loading model...</p>
+        </div>
+
+        <!-- Error Banner -->
         <div id="error-banner"></div>
 
         <!-- Result Section -->
         <section class="result-section" id="result-section">
-            <div class="result-header">
-                <div class="success-badge">
-                    <span>✓</span>
-                    Background removed successfully
-                </div>
-                <h2>Before & After</h2>
-            </div>
-
-            <div class="compare-grid">
-                <div class="compare-card">
-                    <div class="card-label">
-                        <span class="label-dot original"></span>
-                        Original
-                    </div>
-                    <div class="card-image">
-                        <img id="original-preview" alt="Original image">
-                    </div>
-                </div>
-                <div class="compare-card result-card">
-                    <div class="card-label">
-                        <span class="label-dot processed"></span>
-                        Background Removed
-                    </div>
-                    <div class="card-image">
-                        <img id="result-preview" alt="Background removed">
-                    </div>
+            <div class="result-card">
+                <div class="card-label">Background Removed</div>
+                <div class="card-image">
+                    <img id="result-preview" alt="Background removed">
                 </div>
             </div>
-
             <div class="result-actions">
-                <a class="btn-download" id="download-btn" href="#">
-                    <span>⬇</span>
-                    Download PNG
-                </a>
-                <button class="btn-reset" id="reset-btn" type="button">
-                    ↻ Try Another Image
-                </button>
+                <a class="btn-download" id="download-btn" href="#" download="bg_removed.png">Download PNG</a>
+                <button class="btn-reset" id="reset-btn" type="button">Try Another</button>
             </div>
         </section>
 
     </main>
-
 </div>
 
-<script>
+<script type="module">
+    import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm';
+
     const dropZone       = document.getElementById('drop-zone');
     const fileInput      = document.getElementById('file-input');
     const browseBtn      = document.getElementById('browse-btn');
@@ -427,24 +405,19 @@ body {
     const uploadSection  = document.getElementById('upload-section');
     const previewImg     = document.getElementById('upload-preview-img');
     const previewName    = document.getElementById('preview-filename');
-    const previewSize    = document.getElementById('preview-filesize');
     const changeBtn      = document.getElementById('change-btn');
     const actionBar      = document.getElementById('action-bar');
     const processBtn     = document.getElementById('process-btn');
     const errorBanner    = document.getElementById('error-banner');
     const resultSection  = document.getElementById('result-section');
-    const originalPrev   = document.getElementById('original-preview');
     const resultPrev     = document.getElementById('result-preview');
     const downloadBtn    = document.getElementById('download-btn');
     const resetBtn       = document.getElementById('reset-btn');
+    const progressWrap   = document.getElementById('progress-wrap');
+    const progressBar    = document.getElementById('progress-bar');
+    const progressText   = document.getElementById('progress-text');
 
     let selectedFile = null;
-
-    function formatSize(bytes) {
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / 1048576).toFixed(1) + ' MB';
-    }
 
     function showError(msg) {
         errorBanner.textContent = msg;
@@ -479,14 +452,11 @@ body {
         previewSection.style.display = 'block';
         actionBar.style.display = 'flex';
         resultSection.style.display = 'none';
+        progressWrap.style.display = 'none';
         previewName.textContent = file.name;
-        previewSize.textContent = formatSize(file.size);
 
         const reader = new FileReader();
-        reader.onload = e => {
-            previewImg.src = e.target.result;
-            originalPrev.src = e.target.result;
-        };
+        reader.onload = e => { previewImg.src = e.target.result; };
         reader.readAsDataURL(file);
     }
 
@@ -499,21 +469,36 @@ body {
         hideError();
         resultSection.style.display = 'none';
 
-        const formData = new FormData();
-        formData.append('image', selectedFile);
+        // Show progress bar
+        progressWrap.style.display = 'block';
+        progressBar.style.width = '0%';
+        progressText.textContent = 'Loading model… (first time may take 30-60s)';
 
         try {
-            const res = await fetch('/remove-bg', { method: 'POST', body: formData });
-            const data = await res.json();
-            if (!res.ok || data.error) throw new Error(data.error || 'Unknown error');
+            const blob = await removeBackground(selectedFile, {
+                progress: (key, current, total) => {
+                    if (total > 0) {
+                        const pct = Math.round((current / total) * 100);
+                        progressBar.style.width = pct + '%';
+                        if (key.includes('download')) {
+                            progressText.textContent = `Downloading model… ${pct}%`;
+                        } else {
+                            progressText.textContent = `Processing… ${pct}%`;
+                        }
+                    }
+                }
+            });
 
-            resultPrev.src = `/preview/${data.filename}`;
-            downloadBtn.href = `/download/${data.filename}`;
+            const url = URL.createObjectURL(blob);
+            resultPrev.src = url;
+            downloadBtn.href = url;
             resultSection.style.display = 'block';
             actionBar.style.display = 'none';
+            progressWrap.style.display = 'none';
             resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } catch (err) {
-            showError(err.message);
+            showError('Processing failed: ' + err.message);
+            progressWrap.style.display = 'none';
         } finally {
             processBtn.disabled = false;
             processBtn.classList.remove('loading');
@@ -529,9 +514,9 @@ body {
         previewSection.style.display = 'none';
         actionBar.style.display = 'none';
         resultSection.style.display = 'none';
+        progressWrap.style.display = 'none';
         hideError();
         previewImg.src = '';
-        originalPrev.src = '';
         resultPrev.src = '';
     }
 </script>

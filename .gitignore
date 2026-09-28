@@ -1,32 +1,5 @@
-# Virtual environment
 venv/
-.venv/
-env/
-
-# Python
 __pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
-*.egg
-
-# Processed images (generated at runtime)
+*.pyc
 processed/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Environment
 .env
-*.env
-
-# Model cache
-.u2net/
